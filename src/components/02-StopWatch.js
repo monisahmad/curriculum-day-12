@@ -18,9 +18,38 @@ import React, { Component } from 'react';
 */
 
 class StopWatch extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      startTime: Date.now(),
+      elapsedTime: 0,
+    };
+    this.start = this.start.bind(this);
+    this.calculateElapsedTime = this.calculateElapsedTime.bind(this);
+  }
+  componentDidMount() {
+    setTimeout(this.calculateElapsedTime(), 1000);
+  }
+  componentWillUpdate() {
+    console.log('updated');
+  }
+
+  calculateElapsedTime() {
+    this.setState({ elapsedTime: Number(Date.now()) - Number(this.state.startTime) });
+  }
+  start() {
+    this.setState({ startTime: Date.now() });
+  }
+
   render() {
     return (
-      <div>Stop Watch</div>
+      <div>
+        <div>{this.state.elapsedTime}
+        </div>
+        <div>
+          <button onClick={this.start}> start </button>
+        </div>
+      </div>
     );
   }
 }

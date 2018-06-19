@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-// import axios from 'axios';
+import axios from 'axios';
 
 /**
  * Axios is a promise based HTTP client for the browser and node.js.
@@ -20,13 +20,14 @@ import React, { Component } from 'react';
  *  https://api.github.com/users/{username}/repos
  */
 /* eslint-disable react/no-unused-state */
-const GithubRepos = ({ repos }) => {
+const GithubRepos = () => {
+  console.log();
   return (
     <ul>
-      {/* Task: The list of repos here */}
+      {GithubRepos}
     </ul>
   );
-}
+};
 
 // Task: Open the console in the browser. There will be a warning
 // about incorrect prop type for user.
@@ -44,7 +45,20 @@ class UsernameForm extends Component {
       repos: [],
     };
   }
+
+  hitApi() {
+    axios.get(' https://api.github.com/users/monisahmad/repos')
+      .then(response =>
+        console.log(response.data.map(el => el.name)));
+    this.setState({
+      repos: '',
+    });
+  }
   render() {
+    axios.get(' https://api.github.com/users/monisahmad/repos')
+      .then(response =>
+        console.log(response.data.map(el => el.name)));
+
     return (
       <div>
         <input
@@ -52,7 +66,7 @@ class UsernameForm extends Component {
           name="username"
         />
         <button
-          onClick={() => {}}
+          onClick={this.hitApi}
         >
           Get Repos
         </button>
